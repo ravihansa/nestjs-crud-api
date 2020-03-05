@@ -4,9 +4,13 @@
 ![](./test/get-company-list.png)
 <br>
 ![](./test/get-company.png)
-
+<br>
+![](./test/update-company.png)
+<br>
+![](./test/delete-company.png)
 <br>
 <br>
+<hr>
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>

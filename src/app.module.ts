@@ -12,7 +12,8 @@ import { CompanyModule } from './company/company.module';
     MongooseModule.forRoot('mongodb://localhost:27017/companyDB', {
       useNewUrlParser: true,
       useFindAndModify: false,
-      useCreateIndex: true
+      useCreateIndex: true,
+      useUnifiedTopology: true
     }),
     CompanyModule],
   controllers: [AppController],

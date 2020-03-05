@@ -24,5 +24,13 @@ export class CompanyService {
         return company;
     }
 
-    
+    async deleteCompany(companyId: string): Promise<Company> {
+        const company = await this.companyModel.findByIdAndDelete(companyId);
+        return company;
+    }
+
+    async updateCompany(companyId: string, createCompanyDTO: CreateCompanyDTO): Promise<Company> {
+        const company = await this.companyModel.findByIdAndUpdate(companyId, createCompanyDTO, { new: true });
+        return company;
+    }
 }

@@ -1,7 +1,7 @@
-import { Controller, Post, Res, HttpStatus, Body, Get, Put, Delete, Param, Query, NotFoundException, UseInterceptors } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CreateCompanyDTO } from './dto/create-company.dto';
-
+import { Controller, Post, Get, Put, Delete, Body, Param, Query, Res, HttpStatus, NotFoundException, UseInterceptors } from '@nestjs/common';
+// import { MorganInterceptor } from 'nest-morgan';
 
 @Controller('company')
 export class CompanyController {
@@ -51,8 +51,38 @@ export class CompanyController {
         }
     }
 
+    // company/delete?companyId=id
+    // @UseInterceptors(MorganInterceptor('combined'))
+    @Delete('/delete')
+    async deleteCompany(@Res() res, @Query('companyId') companyId) {
+        try {
+            const company = await this.companyService.deleteCompany(companyId);
+            if (!company) throw new NotFoundException('company does not exist');
+            return res.status(HttpStatus.OK).json({
+                message: 'Company Deleted Successfully',
+                company
+            });
+        } catch (e) {
+            return res.status(HttpStatus.NOT_FOUND).json({
+                message: e.message
+            });
+        }
+    }
 
-
-
-
+    // company/update?companyId=id
+    @Put('/update')
+    async updateCompany(@Res() res, @Body() createCompanyDTO: CreateCompanyDTO, @Query('companyId') companyId) {
+        try {
+            const company = await this.companyService.updateCompany(companyId, createCompanyDTO);
+            if (!company) throw new NotFoundException('company does not exist');
+            return res.status(HttpStatus.OK).json({
+                message: 'Company Updated Successfully',
+                company
+            });
+        } catch (e) {
+            return res.status(HttpStatus.NOT_FOUND).json({
+                message: e.message
+            });
+        }
+    }
 }
