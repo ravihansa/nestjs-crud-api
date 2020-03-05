@@ -23,6 +23,34 @@ export class CompanyController {
         }
     }
 
+    // company/list
+    @Get('/list')
+    async getCompanies(@Res() res) {
+        try {
+            const companies = await this.companyService.getCompanies();
+            if (!companies) throw new NotFoundException('companies do not exist');
+            return res.status(HttpStatus.OK).json(companies);
+        } catch (e) {
+            return res.status(HttpStatus.NOT_FOUND).json({
+                message: e.message
+            });
+        }
+    }
+
+    // company/id
+    @Get('/:companyId')
+    async getCompany(@Res() res, @Param('companyId') companyId) {
+        try {
+            const company = await this.companyService.getCompany(companyId);
+            if (!company) throw new NotFoundException('company does not exist');
+            return res.status(HttpStatus.OK).json(company);
+        } catch (e) {
+            return res.status(HttpStatus.NOT_FOUND).json({
+                message: e.message
+            });
+        }
+    }
+
 
 
 

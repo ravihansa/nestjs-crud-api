@@ -14,4 +14,15 @@ export class CompanyService {
         return company.save();
     }
 
+    async getCompanies(): Promise<Company[]> {
+        const company = await this.companyModel.find();
+        return company;
+    }
+
+    async getCompany(companyId: string): Promise<Company> {
+        const company = await this.companyModel.findById(companyId);
+        return company;
+    }
+
+    
 }
